@@ -19,17 +19,15 @@ public class OptionalStreamArrayOperations {
         if (!Optional.ofNullable(configs).map(String::isBlank).orElse(true)) {
             // split the list and put all items into the list
             String[] feld = configs.split(",");
-            if (feld != null) {
-                if (feld.length > 0) {
-                    for (String dummy : feld) {
-                        String tmp = dummy.trim();
-                        if (tmp.length() > 0) {
-                            list.add(tmp);
-                        }
+            if (feld.length > 0) {
+                for (String dummy : feld) {
+                    String tmp = dummy.trim();
+                    if (tmp.length() > 0) {
+                        list.add(tmp);
                     }
-                } else { // no comma
-                    list.add(configs);
                 }
+            } else { // no comma
+                list.add(configs);
             }
         }
 
