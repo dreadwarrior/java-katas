@@ -14,7 +14,7 @@ public class OptionalStreamArrayOperationsTest {
 
         if (configs != null && !configs.trim().isEmpty()) { // TODO: compare with call to StringValidator.isEmptyString() at line 5
             // split the list and put all items into the list
-            if (!StringValidator.isEmptyString(configs)) { // TODO: method body like: string == null || string.trim().isEmpty()
+            if (!StringValidator.isEmptyString(configs)) {
                 String[] feld = configs.split(",");
                 if (feld != null) {
                     if (feld.length > 0) {
@@ -32,5 +32,12 @@ public class OptionalStreamArrayOperationsTest {
         }
 
         return list;
+    }
+
+    static class StringValidator {
+
+        public static boolean isEmptyString(String string) {
+            return string == null || string.trim().isEmpty();
+        }
     }
 }
