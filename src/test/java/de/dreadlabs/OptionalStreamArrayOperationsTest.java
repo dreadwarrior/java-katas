@@ -3,7 +3,37 @@ package de.dreadlabs;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OptionalStreamArrayOperationsTest {
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullSource;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+class OptionalStreamArrayOperationsTest {
+
+    @ParameterizedTest
+    @NullSource
+    @ValueSource(strings = {"", " "})
+    void returnsEmptyList(String input) {
+        assertThat(doIt(input)).isEmpty();
+    }
+
+    @Test
+    @Disabled("until I make it")
+    void returnsEmptyListIfNothingNeedsToBeSplitted() {
+    }
+
+    @Test
+    @Disabled("until I make it")
+    void returnsListWithoutEmptyItems() {
+    }
+
+    @Test
+    @Disabled("until I make it")
+    void returnsListWithoutBlankItems() {
+    }
 
     /**
      * @param configs comma separated list of ids; e.g. "1,2,3"
