@@ -10,24 +10,24 @@ public class OptionalStreamArrayOperations {
     }
 
     /**
-     * @param configs comma separated list of ids; e.g. "1,2,3"
-     * @return List of ids without empty items; e.g. configs="1, ,,4" will result in return value of "1,4"
+     * @param csvIds comma separated list of ids; e.g. "1,2,3"
+     * @return List of ids without empty items; e.g. csvIds="1, ,,4" will result in return value of "1,4"
      */
-    static List<String> convertCsvIdsToList(String configs) {
+    static List<String> convertCsvIdsToList(String csvIds) {
         ArrayList<String> list = new ArrayList<>();
 
-        if (!Optional.ofNullable(configs).map(String::isBlank).orElse(true)) {
+        if (!Optional.ofNullable(csvIds).map(String::isBlank).orElse(true)) {
             // split the list and put all items into the list
-            String[] feld = configs.split(",");
-            if (feld.length > 0) {
-                for (String dummy : feld) {
-                    String tmp = dummy.trim();
-                    if (tmp.length() > 0) {
-                        list.add(tmp);
+            String[] ids = csvIds.split(",");
+            if (ids.length > 0) {
+                for (String id : ids) {
+                    String trimmedId = id.trim();
+                    if (trimmedId.length() > 0) {
+                        list.add(trimmedId);
                     }
                 }
             } else { // no comma
-                list.add(configs);
+                list.add(csvIds);
             }
         }
 
