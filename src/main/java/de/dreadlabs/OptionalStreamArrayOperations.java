@@ -1,6 +1,7 @@
 package de.dreadlabs;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,12 +21,7 @@ public class OptionalStreamArrayOperations {
             // split the list and put all items into the list
             String[] ids = csvIds.split(",");
             if (ids.length > 0) {
-                for (String id : ids) {
-                    String trimmedId = id.trim();
-                    if (trimmedId.length() > 0) {
-                        list.add(trimmedId);
-                    }
-                }
+                return Arrays.stream(ids).map(String::trim).filter(it -> it.length() > 0).toList();
             } else { // no comma
                 list.add(csvIds);
             }
