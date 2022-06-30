@@ -15,18 +15,16 @@ public class OptionalStreamArrayOperations {
      * @return List of ids without empty items; e.g. csvIds="1, ,,4" will result in return value of "1,4"
      */
     static List<String> convertCsvIdsToList(String csvIds) {
-        ArrayList<String> list = new ArrayList<>();
-
         if (!Optional.ofNullable(csvIds).map(String::isBlank).orElse(true)) {
             // split the list and put all items into the list
             String[] ids = csvIds.split(",");
             if (ids.length > 0) {
                 return Arrays.stream(ids).map(String::trim).filter(it -> it.length() > 0).toList();
             } else { // no comma
-                list.add(csvIds);
+                return List.of(csvIds);
             }
         }
 
-        return list;
+        return new ArrayList<>();
     }
 }
