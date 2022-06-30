@@ -16,6 +16,7 @@ class OptionalStreamArrayOperationsTest {
     @ValueSource(strings = {"", " ", ", ,", ",,,    "})
     void returnsEmptyList(String input) {
         assertThat(OptionalStreamArrayOperations.convertCsvIdsToList(input)).isEmpty();
+        assertThat(OptionalStreamArrayOperations.convertCsvIdsToList(input)).isEqualTo(OptionalStreamArrayOperations.convertCsvIdsToListOriginal(input));
     }
 
     @ParameterizedTest
@@ -23,11 +24,13 @@ class OptionalStreamArrayOperationsTest {
     void returnsInputAsIsIfOnlyContainingCommas(String input) {
         // @see https://stackoverflow.com/a/28035974
         assertThat(OptionalStreamArrayOperations.convertCsvIdsToList(input)).isEqualTo(List.of(input));
+        assertThat(OptionalStreamArrayOperations.convertCsvIdsToList(input)).isEqualTo(OptionalStreamArrayOperations.convertCsvIdsToListOriginal(input));
     }
 
     @Test
     void returnsListWithoutEmptyOrBlankItemsButTrimmedItems() {
         assertThat(OptionalStreamArrayOperations.convertCsvIdsToList("1,, ,2, 3 ,4")).isEqualTo(List.of("1", "2", "3", "4"));
+        assertThat(OptionalStreamArrayOperations.convertCsvIdsToList("1,, ,2, 3 ,4")).isEqualTo(OptionalStreamArrayOperations.convertCsvIdsToListOriginal("1,, ,2, 3 ,4"));
     }
 
 }
