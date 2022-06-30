@@ -2,6 +2,7 @@ package de.dreadlabs;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class OptionalStreamArrayOperations {
 
@@ -15,7 +16,7 @@ public class OptionalStreamArrayOperations {
     static List<String> convertCsvIdsToList(String configs) {
         ArrayList<String> list = new ArrayList<>();
 
-        if (configs != null && !configs.trim().isEmpty()) {
+        if (!Optional.ofNullable(configs).map(String::isBlank).orElse(true)) {
             // split the list and put all items into the list
             String[] feld = configs.split(",");
             if (feld != null) {
