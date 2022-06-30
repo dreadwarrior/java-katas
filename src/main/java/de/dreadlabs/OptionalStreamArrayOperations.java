@@ -1,6 +1,5 @@
 package de.dreadlabs;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -15,16 +14,17 @@ public class OptionalStreamArrayOperations {
      * @return List of ids without empty items; e.g. csvIds="1, ,,4" will result in return value of "1,4"
      */
     static List<String> convertCsvIdsToList(String csvIds) {
-        if (!Optional.ofNullable(csvIds).map(String::isBlank).orElse(true)) {
-            // split the list and put all items into the list
-            String[] ids = csvIds.split(",");
-            if (ids.length > 0) {
-                return Arrays.stream(ids).map(String::trim).filter(it -> it.length() > 0).toList();
-            } else { // no comma
-                return List.of(csvIds);
-            }
+        if (Optional.ofNullable(csvIds).map(String::isBlank).orElse(true)) {
+            return List.of();
         }
 
-        return new ArrayList<>();
+        // split the list and put all items into the list
+        String[] ids = csvIds.split(",");
+
+        if (ids.length <= 0) { // no comma
+            return List.of(csvIds);
+        }
+
+        return Arrays.stream(ids).map(String::trim).filter(it -> it.length() > 0).toList();
     }
 }
