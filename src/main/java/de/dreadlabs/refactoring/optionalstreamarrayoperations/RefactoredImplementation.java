@@ -14,17 +14,9 @@ public class RefactoredImplementation implements OptionalStreamArrayOperations {
      */
     @Override
     public List<String> convertCsvIdsToList(String csvIds) {
-        if (Optional.ofNullable(csvIds).map(String::isBlank).orElse(true)) {
-            return new ArrayList<>(List.of());
-        }
-
-        // split the list and put all items into the list
-        String[] ids = csvIds.split(",");
-
-        if (ids.length <= 0) { // no comma
-            return new ArrayList<>(List.of(csvIds));
-        }
-
-        return Arrays.stream(ids).map(String::trim).filter(it -> it.length() > 0).collect(Collectors.toCollection(ArrayList::new));
+        return Optional.ofNullable(csvIds)
+                .map(it -> it.split(","))
+                .map(it -> it.length <= 0 ? new ArrayList<>(List.of(csvIds)) : Arrays.stream(it).map(String::trim).filter(id -> id.length() > 0).collect(Collectors.toCollection(ArrayList::new)))
+                .orElse(new ArrayList<>(List.of()));
     }
 }

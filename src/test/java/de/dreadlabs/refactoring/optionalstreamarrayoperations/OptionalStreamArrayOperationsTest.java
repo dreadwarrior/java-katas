@@ -10,12 +10,10 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class OptionalStreamArrayOperationsTest {
-
     private final List<OptionalStreamArrayOperations> implementations = List.of(
             new LegacyImplementation(),
             new RefactoredImplementation()
     );
-
     @ParameterizedTest
     @NullSource
     @ValueSource(strings = {"", " ", ", ,", ",,,    "})
