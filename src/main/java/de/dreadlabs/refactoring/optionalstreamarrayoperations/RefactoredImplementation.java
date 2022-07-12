@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class RefactoredImplementation implements OptionalStreamArrayOperations {
 
@@ -16,7 +17,10 @@ public class RefactoredImplementation implements OptionalStreamArrayOperations {
     public List<String> convertCsvIdsToList(String csvIds) {
         return Optional.ofNullable(csvIds)
                 .map(it -> it.split(","))
-                .map(it -> it.length <= 0 ? new ArrayList<>(List.of(csvIds)) : Arrays.stream(it).map(String::trim).filter(id -> id.length() > 0).collect(Collectors.toCollection(ArrayList::new)))
-                .orElse(new ArrayList<>(List.of()));
+                .map(it -> it.length <= 0 ? Stream.of(csvIds) : Arrays.stream(it))
+                .orElse(Stream.empty())
+                .map(String::trim)
+                .filter(id -> id.length() > 0)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }
