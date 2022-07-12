@@ -9,31 +9,32 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class OptionalStreamArrayOperationsTest {
-    private final List<OptionalStreamArrayOperations> implementations = List.of(
-            new LegacyImplementation(),
-            new RefactoredImplementation()
+class CommaDelimitedStringConverterTest {
+
+    private final List<CommaDelimitedStringConverter> converters = List.of(
+            new ImperativeConverter(),
+            new FunctionalConverter()
     );
     @ParameterizedTest
     @NullSource
     @ValueSource(strings = {"", " ", ", ,", ",,,    "})
     void returnsEmptyList(String input) {
-        assertThat(implementations).allSatisfy(it -> assertThat(it.convertCsvIdsToList(input)).as(classNameOf(it)).isEmpty());
+        assertThat(converters).allSatisfy(it -> assertThat(it.toList(input)).as(classNameOf(it)).isEmpty());
     }
 
     @ParameterizedTest
     @ValueSource(strings = {",", ",,", ",,,"})
     void returnsInputAsIsIfOnlyContainingCommas(String input) {
         // @see https://stackoverflow.com/a/28035974
-        assertThat(implementations).allSatisfy(it -> assertThat(it.convertCsvIdsToList(input)).as(classNameOf(it)).isEqualTo(List.of(input)));
+        assertThat(converters).allSatisfy(it -> assertThat(it.toList(input)).as(classNameOf(it)).isEqualTo(List.of(input)));
     }
 
     @Test
     void returnsListWithoutEmptyOrBlankItemsButTrimmedItems() {
-        assertThat(implementations).allSatisfy(it -> assertThat(it.convertCsvIdsToList("1,, ,2, 3 ,4")).as(classNameOf(it)).isEqualTo(List.of("1", "2", "3", "4")));
+        assertThat(converters).allSatisfy(it -> assertThat(it.toList("1,, ,2, 3 ,4")).as(classNameOf(it)).isEqualTo(List.of("1", "2", "3", "4")));
     }
 
-    private String classNameOf(OptionalStreamArrayOperations it) {
+    private String classNameOf(CommaDelimitedStringConverter it) {
         return it.getClass().getName();
     }
 }

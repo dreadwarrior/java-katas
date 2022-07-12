@@ -3,10 +3,10 @@ package de.dreadlabs.refactoring.optionalstreamarrayoperations;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LegacyImplementation implements OptionalStreamArrayOperations {
+public class ImperativeConverter implements CommaDelimitedStringConverter {
 
     @Override
-    public List<String> convertCsvIdsToList(String configs) {
+    public List<String> toList(String configs) {
         ArrayList<String> list = new ArrayList<>();
         if (configs != null && !configs.trim().isEmpty()) {
             // split the list and put all items into the list
