@@ -15,9 +15,10 @@ class CommaDelimitedStringConverterTest {
             new ImperativeConverter(),
             new FunctionalConverter()
     );
+
     @ParameterizedTest
     @NullSource
-    @ValueSource(strings = {"", " ", ", ,", ",,,    "})
+    @ValueSource(strings = {"", " ", ", ,", ",,,    ", " ,, "})
     void returnsEmptyList(String input) {
         assertThat(converters).allSatisfy(it -> assertThat(it.toList(input)).as(classNameOf(it)).isEmpty());
     }
