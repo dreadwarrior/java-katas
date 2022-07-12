@@ -17,8 +17,8 @@ public class RefactoredImplementation implements OptionalStreamArrayOperations {
     public List<String> convertCsvIdsToList(String csvIds) {
         return Optional.ofNullable(csvIds)
                 .map(it -> it.split(","))
-                .map(it -> it.length <= 0 ? Stream.of(csvIds) : Arrays.stream(it))
-                .orElse(Stream.empty())
+                .stream()
+                .flatMap(it -> it.length <= 0 ? Stream.of(csvIds) : Arrays.stream(it))
                 .map(String::trim)
                 .filter(id -> id.length() > 0)
                 .collect(Collectors.toCollection(ArrayList::new));
